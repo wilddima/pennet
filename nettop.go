@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"os/exec"
+	"regexp"
 )
 
 type Netstat struct {
@@ -13,6 +14,7 @@ type Netstat struct {
 }
 
 var headers = [...]string{"bytes_in", "bytes_out", "", "time"}
+var localhostRegexp = regexp.MustCompile("localhost|127.0.0.1|udp4|tcp6|tcp4|udp6")
 
 func NewNetstat() *Netstat {
 	cmd := exec.Command("nettop", "-J bytes_in,bytes_out", "-L 0", "-s 1", "-P")
@@ -34,7 +36,8 @@ func (ns *Netstat) Fetch(ch chan Stat) {
 			readedStats[0] == val ||
 			readedStats[1] == val ||
 			readedStats[2] == val ||
-			readedStats[3] == val {
+			readedStats[3] == val ||
+			localhostRegexp.MatchString(readedStats[1]) {
 			close(ch)
 			return
 		}

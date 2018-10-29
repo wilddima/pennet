@@ -1,2 +1,4 @@
 *.swp
 pennet
+.DS_Store
+node_modules

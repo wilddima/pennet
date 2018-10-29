@@ -1,0 +1,15 @@
+{
+  "name": "pennet",
+  "version": "0.0.1",
+  "description": "Traffic monitor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wilddima",
+  "license": "ISC",
+  "dependencies": {
+    "electron-positioner": "^4.1.0",
+    "xel": "0.0.158"
+  }
+}
