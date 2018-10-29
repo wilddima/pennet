@@ -16,7 +16,6 @@ client.on('error', (err) => console.log(err))
 
 client.on('data', (data) => {
   console.log(data.toString());
-  client.end();
 });
 
 client.on('end', () => {

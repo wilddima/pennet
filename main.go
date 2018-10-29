@@ -46,10 +46,6 @@ func fetchStats(store *StatsStore, ns *Netstat, ping chan struct{}) chan struct{
 func handleConnection(connection net.Conn, store *StatsStore, ping chan struct{}) {
 	for {
 		<-ping
-		store.mutex.RLock()
-		for _, val := range store.stats {
-			connection.Write(val.Format())
-		}
-		store.mutex.RUnlock()
+		connection.Write(store.Serialize())
 	}
 }

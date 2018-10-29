@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"sync"
 )
 
@@ -34,4 +36,14 @@ func (s *StatsStore) Get(key string) Stat {
 
 func (stats Stat) Format() []byte {
 	return []byte(fmt.Sprintf("%s %s %s\n", stats.Name, stats.BytesIn, stats.BytesOut))
+}
+
+func (s *StatsStore) Serialize() []byte {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+	data, err := json.MarshalIndent(s.stats, "", "    ")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data
 }
