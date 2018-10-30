@@ -1,9 +1,6 @@
 const { createConnection } = require('net');
 const { spawn } = require('child_process');
-const { app, BrowserWindow, Tray, ipcRenderer } = require('electron');
-const Positioner = require('electron-positioner');
-
-const subprocess = spawn('./pennet');
+const subprocess = spawn(process.cwd() + '/pennet');
 
 let stats = {}
 
@@ -16,15 +13,14 @@ const client = createConnection({ port: 12345 }, () => {
   client.write('world!\r\n');
 });
 
-client.on('data', (data) => {
-  stats = Object.assign(stats, JSON.parse(data));
-})
-
 client.on('error', (err) => console.log(err))
 
 client.on('end', () => {
   console.log('disconnected from server');
 });
+
+const { app, BrowserWindow, Tray, ipcRenderer } = require('electron');
+const Positioner = require('electron-positioner');
 
 let tray = null
 let win = null
@@ -45,6 +41,7 @@ app.on('ready', () => {
   positioner.move('topRight')
 
   win.setMenu(null)
+  win.toggleDevTools();
   win.loadFile(process.cwd() + '/index.html')
 
   tray.setIgnoreDoubleClickEvents(true)
@@ -55,5 +52,12 @@ app.on('ready', () => {
     } else {
       win.show();
     }
+  })
+
+  client.on('data', (data) => {
+    try {
+      stats = Object.assign(stats, JSON.parse(data));
+      win.webContents.send('update-data', stats);
+    } catch {}
   })
 })

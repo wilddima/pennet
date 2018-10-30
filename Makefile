@@ -1,7 +1,7 @@
 all: clean build run
 
 run:
-	node ./index.js
+	npm start
 
 clean:
 	rm ./pennet
