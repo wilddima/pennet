@@ -34,7 +34,9 @@ app.on('ready', () => {
     alwaysOnTop: true,
     show: false,
     frame: false,
-    skipTaskbar: true
+    skipTaskbar: true,
+    width: 500,
+    height: 800
   })
 
   positioner = new Positioner(win)

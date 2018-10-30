@@ -29,7 +29,7 @@ func main() {
 
 func fetchStats(store *StatsStore, ns *Netstat, ping chan struct{}) chan struct{} {
 	for {
-		ch := make(chan Stat, 5)
+		ch := make(chan Stat)
 		go ns.Fetch(ch)
 		stat, ok := <-ch
 		if !ok {

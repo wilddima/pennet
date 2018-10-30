@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "electron-positioner": "^4.1.0",
+    "lodash": "^4.17.11",
+    "uikit": "^3.0.0-rc.20",
     "xel": "0.0.158"
   }
 }
