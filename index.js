@@ -20,10 +20,10 @@ client.on('end', () => {
 });
 
 const { app, BrowserWindow, Tray, ipcRenderer } = require('electron');
-const Positioner = require('electron-positioner');
 
-let tray = null
-let win = null
+let tray = null;
+let win = null;
+let accBuffer = Buffer.from([]);
 
 app.dock.hide()
 
@@ -35,20 +35,19 @@ app.on('ready', () => {
     show: false,
     frame: false,
     skipTaskbar: true,
-    width: 500,
-    height: 800
+    width: 400,
+    height: 400
   })
 
-  positioner = new Positioner(win)
-  positioner.move('topRight')
-
-  win.setMenu(null)
+  win.setMenu(null);
   win.toggleDevTools();
   win.loadFile(process.cwd() + '/index.html')
 
   tray.setIgnoreDoubleClickEvents(true)
 
-  tray.on('click', () => {
+  tray.on('click', (e) => {
+    position = tray.getBounds();
+    win.setPosition(position.x - 200, position.y + 30);
     if (win.isVisible()) {
       win.hide();
     } else {
@@ -56,10 +55,25 @@ app.on('ready', () => {
     }
   })
 
+  win.on('blur', () => {
+    if (win.isVisible()) {
+      win.hide();
+    }
+  })
+
   client.on('data', (data) => {
-    try {
-      stats = Object.assign(stats, JSON.parse(data));
-      win.webContents.send('update-data', stats);
-    } catch {}
+    data = Buffer.concat([accBuffer, data])
+    buff = data.toString().split("\n")
+    buff.forEach((b) => {
+      if (b.length !== 0) {
+        try {
+          stats = Object.assign(stats, JSON.parse(b));
+          win.webContents.send('update-data', stats);
+          accBuffer = Buffer.from([]);
+        } catch (e) {
+          accBuffer = data;
+        }
+      }
+    })
   })
 })
