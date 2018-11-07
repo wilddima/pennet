@@ -45,7 +45,7 @@ app.on('ready', () => {
   })
 
   win.setMenu(null);
-  win.toggleDevTools();
+  //win.toggleDevTools();
   win.loadFile(process.cwd() + '/index.html')
 
   tray.setIgnoreDoubleClickEvents(true)
