@@ -4,7 +4,7 @@ run:
 	npm start
 
 clean:
-	rm ./pennet
+	rm -f ./pennet
 
 build:
 	go build
