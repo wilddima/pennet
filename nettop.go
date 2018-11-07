@@ -18,7 +18,6 @@ var headers = [...]string{"bytes_in", "bytes_out", "", "time"}
 var systemRegexp = regexp.MustCompile("mDNSResponder|biometrickitd")
 
 func NewNetstat() *Netstat {
-	//cmd := exec.Command("nettop", "-t", "external", "-J bytes_in,bytes_out", "-L 0", "-s 5", "-P", "-x", "-m", "tcp")
 	cmd := exec.Command("nettop", "-t", "external", "-J bytes_in,bytes_out", "-L 0", "-s 5", "-P", "-x")
 	f, err := pty.Start(cmd)
 	if err != nil {
@@ -39,7 +38,6 @@ func (ns *Netstat) FetchRow() []string {
 
 func (ns *Netstat) Fetch(ch chan Stat) {
 	readedStats := ns.FetchRow()
-	//fmt.Println(readedStats)
 	if len(readedStats) < 4 || len(readedStats[1]) == 0 || systemRegexp.MatchString(readedStats[1]) {
 		close(ch)
 		return
