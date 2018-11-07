@@ -41,7 +41,7 @@ func (stats Stat) Format() []byte {
 func (s *StatsStore) Serialize() []byte {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
-	data, err := json.MarshalIndent(s.stats, "", "    ")
+	data, err := json.Marshal(s.stats)
 	if err != nil {
 		log.Fatal(err)
 	}

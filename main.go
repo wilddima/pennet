@@ -47,5 +47,6 @@ func handleConnection(connection net.Conn, store *StatsStore, ping chan struct{}
 	for {
 		<-ping
 		connection.Write(store.Serialize())
+		connection.Write([]byte("\n"))
 	}
 }
