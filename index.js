@@ -1,3 +1,8 @@
+if (process.platform !== 'darwin') {
+  console.log(`Unsupported platform: ${process.platform}`);
+  process.exit(1);
+}
+
 const { createConnection } = require('net');
 const { spawn } = require('child_process');
 const subprocess = spawn(process.cwd() + '/pennet');
