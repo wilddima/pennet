@@ -1,5 +1,5 @@
 # Pennet
 
-Simple desktop MacOs application for monitoring internet traffic written with using Electron and Golang
+Simple desktop MacOs application for monitoring internet traffic written with using Electron and Go
 
-![Record](https://d2ddoduugvun08.cloudfront.net/items/071V19422v1s1I471O2K/Screen%20Recording%202018-11-07%20at%2009.56%20AM.gif)
+![Record](https://d2ddoduugvun08.cloudfront.net/items/40102I0t2F3s1L36080g/Screen%20Recording%202018-11-07%20at%2006.49%20PM.gif)
