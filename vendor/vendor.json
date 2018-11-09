@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "dQCDpY/IVAqdrFJgolIo2Dq5+vA=",
+			"path": "github.com/kr/pty",
+			"revision": "db8e3cd836b82e82e0a9c8edc6896967dd31374f",
+			"revisionTime": "2018-09-15T15:00:18Z"
+		}
+	],
+	"rootPath": "github.com/wilddima/pennet"
+}
